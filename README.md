@@ -8,7 +8,7 @@ To manage the application state, I've integrated Redux Toolkit, while I've used 
 
 Once users have finished selecting items for their shopping cart, they can seamlessly proceed to checkout. For payment processing, I've integrated the STRIPE payment gateway, a trusted European payment solution. This gateway streamlines the payment process by pre-filling payment details with cart data and any additional information needed for transaction processing. The result is a fast and highly intuitive payment experience, which is why I chose to incorporate it into the project.
 
-# I show some pictures of the Project
+# ScreenShoots of the Project
 
 ![screen1](https://github.com/alexanderdev5/EccomerceSneakers-FE/assets/79029068/3c35f4d1-05e6-4dba-990c-26663d9ec10d)
 
