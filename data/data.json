@@ -1,0 +1,103 @@
+{
+    "products": [
+        {
+          "id": "1",
+          "name": "Producto 1",
+          "price": 15,
+          "image": "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1665&q=80",
+          "description": "Descripción del Producto 1"
+        },
+        {
+          "id": "2",
+          "name": "Producto 2",
+          "price": 15,
+          "colors": [3, 4, 1],
+          "image": "https://images.unsplash.com/photo-1543508282-6319a3e2621f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1615&q=80",
+          "description": "Descripción del Producto 2"
+        },
+        {
+          "id": "3",
+          "name": "Producto 3",
+          "price": 15,
+          "sizes": [1, 2],
+          "image": "https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
+          "description": "Descripción del Producto 3"
+        },
+        {
+          "id": "4",
+          "name": "Producto 4",
+          "price": 15,
+          "colors": [1,2, 3],
+          "sizes": [1,2, 4],
+          "image": "https://images.unsplash.com/photo-1613489647684-4dc8c9948245?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1888&q=80",
+          "description": "Descripción del Producto 4"
+        },
+        {
+          "id": "5",
+          "name": "Producto 5",
+          "price": 15,
+          "colors": [1,2, 3],
+          "sizes": [1,3, 4],
+          "image": "https://images.unsplash.com/photo-1586525198428-225f6f12cff5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
+          "description": "Descripción del Producto 5"
+        },
+        {
+          "id": "6",
+          "name": "Producto 6",
+          "price": 15,
+          "colors": [3, 4],
+          "sizes": [1, 2],
+          "image": "https://images.unsplash.com/photo-1621665421558-831f91fd0500?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
+          "description": "Descripción del Producto 6"
+        },
+        {
+          "id": "7",
+          "name": "Producto 7",
+          "price": 15,
+          "colors": [1, 4],
+          "sizes": [3, 4],
+          "image": "https://images.unsplash.com/photo-1611510338559-2f463335092c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1664&q=80",
+          "description": "Descripción del Producto 7"
+        },
+        {
+          "id": "8",
+          "name": "Producto 8",
+          "price": 15,
+          "colors": [2, 3],
+          "sizes": [1, 2],
+          "image": "https://images.unsplash.com/photo-1622760807309-db1e5e9326fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1665&q=80",
+          "description": "Descripción del Producto 8"
+        },
+        {
+          "id": "9",
+          "name": "Producto 9",
+          "price": 15,
+          "colors": [1, 2],
+          "sizes": [3, 4],
+          "image": "https://images.unsplash.com/photo-1613740105081-e88271c0211f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
+          "description": "Descripción del Producto 9"
+        },
+        {
+          "id": "10",
+          "name": "Producto 10",
+          "price": 15,
+          "colors": [1, 3],
+          "sizes": [1, 3],
+          "image": "https://images.unsplash.com/photo-1603808033176-9d134e6f2c74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1615&q=80",
+          "description": "Descripción del Producto 10"
+        }
+      ],
+    "colors": [
+      { "id": 1, "name": "Azul", "value": "#045CF7" },
+      { "id": 2, "name": "Negro", "value": "#010101" },
+      { "id": 3, "name": "Rojo", "value": "#F7390B" },
+      { "id": 4, "name": "Verde", "value": "#7AF70B" }
+    ],
+    "sizes": [
+      { "id": 1, "name": "Small", "value": "S" },
+      { "id": 2, "name": "Medium", "value": "M" },
+      { "id": 3, "name": "Large", "value": "L" },
+      { "id": 4, "name": "X-Large", "value": "XL" }
+    ]
+  }
+  
