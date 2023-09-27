@@ -3,14 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, clearCart, calculateTotal } from "../store/cartSlice";
 import { updateQuantityCart, selectTotalQuantity } from "../store/cartSlice";
 import Link from "next/link";
-import data from "../data/data";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log("Cart-Item", cartItems)
   const total = useSelector((state) => state.cart.total);
   const totalQuantity = useSelector(selectTotalQuantity);
-  const { colors, sizes } = data;
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (item) => {
@@ -21,8 +18,8 @@ const Cart = () => {
     dispatch(
       updateQuantityCart({
         id: item.id,
-        color: item.color,
-        size: item.size,
+        selectedColor: item.selectedColor, // Corrected property name
+        selectedSize: item.selectedSize,   // Corrected property name
         newQuantity,
       })
     );
@@ -30,26 +27,6 @@ const Cart = () => {
 
   const handleClearCart = () => {
     dispatch(clearCart());
-  };
-
-  const getColorNameById = (colorId) => {
-    const color = colors.find((c) => c.id === colorId);
-    return color ? (
-      <div className="flex items-center">
-        <div
-          className="w-4 h-4 rounded-full mr-2"
-          style={{ backgroundColor: color.value }}
-        ></div>
-        {color.name}
-      </div>
-    ) : (
-      ""
-    );
-  };
-
-  const getSizeValueById = (sizeId) => {
-    const size = sizes.find((s) => s.id === sizeId);
-    return size ? size.value : "";
   };
 
   useEffect(() => {
@@ -69,20 +46,19 @@ const Cart = () => {
       ) : (
         <div>
           <ul className="mb-8">
-            {cartItems.map((item) => {
-              const colorName = getColorNameById(item.color);
-              const sizeName = getSizeValueById(item.size);
+            {cartItems?.map((item) => {
               const totalPricePerProduct = item.price * item.quantity;
 
               return (
                 <li
-                  key={`${item.id}-${item.color}-${item.size}`}
+                  key={item.id}
                   className="mb-4 border rounded-lg p-4 shadow-md"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
+                     
                       <img
-                        src={item.image}
+                        src={item.miniatura}
                         alt={item.name}
                         className="w-16 h-16 rounded-md object-cover mr-4"
                       />
@@ -91,14 +67,18 @@ const Cart = () => {
                         <p className="text-gray-600">
                           <span className="text-blue-500">Precio:</span>{" "}
                           <span className="text-xl text-red-600 font-medium">
-                            ${item.price.toFixed(2)}
+                            ${item.price}
                           </span>
                         </p>
-                        {colorName && (
-                          <p className="text-gray-600">Color: {colorName}</p>
+                        {item.selectedColor && (
+                          <p className="text-gray-600">
+                            Color: {item.selectedColor}
+                          </p>
                         )}
-                        {sizeName && (
-                          <p className="text-gray-600">Tamaño: {sizeName}</p>
+                        {item.selectedSize && (
+                          <p className="text-gray-600">
+                            Tamaño: {item.selectedSize}
+                          </p>
                         )}
                         {item.description && (
                           <p className="text-gray-600 mt-2">
@@ -128,9 +108,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="text-gray-600 mt-2">
-                    <span className="text-blue-500">
-                      Total por Producto:
-                    </span>{" "}
+                    <span className="text-blue-500">Total por Producto:</span>{" "}
                     <span className="text-xl text-red-600 font-medium">
                       ${totalPricePerProduct.toFixed(2)}
                     </span>
@@ -140,7 +118,7 @@ const Cart = () => {
             })}
           </ul>
           <div className="text-xl font-semibold mb-4 md:mb-0">
-            Total: ${total.toFixed(2)}
+            Total: {typeof total === "number" ? `$${total.toFixed(2)}` : "N/A"}
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between">
             <button

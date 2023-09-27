@@ -55,7 +55,7 @@ const ProductList = () => {
 
        // Mostrar notificación tostada de éxito
        toast.success(`Se agregó al Carrito: '${product.name}'`, {
-        duration: 1500,
+        duration: 9000,
         style: {
           background: 'white',
           color: 'black',
@@ -70,7 +70,7 @@ const ProductList = () => {
       <Toaster position="top-center" />
 
   <h2 className="text-3xl font-semibold mb-8 text-center md:text-left">
-    Lista de Productos con/sin Variantes (COLOR y SIZE)
+    Lista de Productos (COLOR y SIZE)
   </h2>
   <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 gap-6">
     {products.map((product, index) => (

@@ -12,29 +12,29 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-900 py-4">
+    <header className="bg-gray-50 py-4 mb-5">
       <div className="container mx-auto flex items-center justify-between">
         <Link href="/"
            className="flex items-center">
             <img
-              src="/img/logo.png"
+              src="./logos.png"
               alt="Imagen logo"
               className="h-12 w-auto"
             />
-            <span className="text-white text-xl font-semibold ml-2">
-              Tu Empresa
+            <span className="text-black text-xl font-semibold ml-2">
+              JORDAN STORE
             </span>
           
         </Link>
 
-        <nav className="hidden md:flex text-white space-x-6">
-          <Link href="/" className={`hover:text-blue-500 ${router.pathname === "/" && "text-blue-500"}`}>Inicio
+        <nav className="hidden md:flex text-black space-x-6">
+          <Link href="/" className={`hover:text-blue-700 ${router.pathname === "/" && "text-black"}`}>Inicio
           </Link>
           <Link href="/nosotros"
-             className={`hover:text-blue-500 ${router.pathname === "/nosotros" && "text-blue-500"}`}>Nosotros
+             className={`hover:text-blue-700 ${router.pathname === "/nosotros" && "text-black"}`}>Nosotros
           </Link>
           <Link href="/blog"
-             className={`hover:text-blue-500 ${router.pathname === "/blog" && "text-blue-500"}`}>Blog
+             className={`hover:text-blue-700 ${router.pathname === "/blog" && "text-black"}`}>Blog
           </Link>
           <Link href="/tienda"
              className={`hover:text-blue-500 ${router.pathname === "/tienda" && "text-blue-500"}`}>Tienda
@@ -44,7 +44,7 @@ const Header = () => {
         {/* Botón del menú hamburguesa */}
         <button
           onClick={toggleMenu}
-          className="md:hidden text-white focus:outline-none"
+          className="md:hidden text-black focus:outline-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
