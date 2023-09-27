@@ -9,18 +9,19 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const { id, name, description, price, miniatura, selectedColor, selectedSize } = action.payload;
-
-      // Generate a unique key for the cart item based on id, color, and size
-      const itemKey = `${id}-${selectedColor}-${selectedSize}`;
-
-      // Check if the item with the same key is already in the cart
+    
+      // Genera una clave única para el producto en el carrito
+      // Incluye el id, el color y la talla solo si están disponibles
+      const itemKey = `${id}-${selectedColor || 'N/A'}-${selectedSize || 'N/A'}`;
+    
+      // Busca el elemento en el carrito con la misma clave
       const existingItem = state.cartItems.find((item) => item.key === itemKey);
-
+    
       if (existingItem) {
-        // If the item already exists, increase its quantity
+        // Si el producto ya existe, aumenta su cantidad en 1
         existingItem.quantity += 1;
       } else {
-        // If the item doesn't exist, add it to the cart with the generated key
+        // Si el producto no existe, agrégalo al carrito con la clave generada
         state.cartItems.push({
           key: itemKey,
           id,
@@ -34,6 +35,7 @@ export const cartSlice = createSlice({
         });
       }
     },
+    
     updateQuantityCart: (state, action) => {
       const { id, selectedSize, selectedColor, newQuantity } = action.payload;
 

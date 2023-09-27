@@ -3,6 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, clearCart, calculateTotal } from "../store/cartSlice";
 import { updateQuantityCart, selectTotalQuantity } from "../store/cartSlice";
 import Link from "next/link";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaTrash } from "react-icons/fa"; // Importa el ícono de React Icons que desees usar
+
+import toast, { Toaster } from "react-hot-toast";
+// ...
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -10,20 +16,46 @@ const Cart = () => {
   const totalQuantity = useSelector(selectTotalQuantity);
   const dispatch = useDispatch();
 
-  const handleRemoveFromCart = (item) => {
-    dispatch(removeFromCart(item));
-  };
+  // Función para mostrar toasts personalizados
+const showToast = (message, icon, duration) => {
+  toast(message, {
+    icon,
+    position: "top-right",
+    duration,
+    style: {
+      background: "white",
+      color: "black",
+    },
+  });
+};
 
-  const handleUpdateCart = (item, newQuantity) => {
-    dispatch(
-      updateQuantityCart({
-        id: item.id,
-        selectedColor: item.selectedColor, // Corrected property name
-        selectedSize: item.selectedSize,   // Corrected property name
-        newQuantity,
-      })
-    );
-  };
+const handleRemoveFromCart = (item) => {
+  dispatch(removeFromCart(item));
+
+  const message = `Se eliminó a '${item.name}' del carrito`;
+  const icon = '✂️';
+  const duration = 1300;
+
+  showToast(message, icon, duration);
+};
+
+const handleUpdateCart = (item, newQuantity) => {
+  dispatch(
+    updateQuantityCart({
+      id: item.id,
+      selectedColor: item.selectedColor,
+      selectedSize: item.selectedSize,
+      newQuantity,
+    })
+  );
+
+  const message = `Cantidad actualizada de '${item.name}'`;
+  const icon = '✍️';
+  const duration = 1000;
+
+  showToast(message, icon, duration);
+};
+
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -44,97 +76,108 @@ const Cart = () => {
       {cartItems.length === 0 ? (
         <p className="text-xl text-center">Tu carrito está vacío.</p>
       ) : (
-        <div>
-          <ul className="mb-8">
-            {cartItems?.map((item) => {
-              const totalPricePerProduct = item.price * item.quantity;
+        <AnimatePresence>
+          <motion.div
+            className="border rounded-lg overflow-hidden flex flex-col"
+            initial={{ opacity: 0, y: 20 }} // Animación de entrada
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }} // Animación de salida
+            transition={{ duration: 0.5, type: "spring", stiffness: 120 }}
+          >
+            <ul className="mb-8">
+              {cartItems?.map((item, index) => {
+                const totalPricePerProduct = item.price * item.quantity;
 
-              return (
-                <li
-                  key={item.id}
-                  className="mb-4 border rounded-lg p-4 shadow-md"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                     
-                      <img
-                        src={item.miniatura}
-                        alt={item.name}
-                        className="w-16 h-16 rounded-md object-cover mr-4"
-                      />
-                      <div>
-                        <h3 className="text-lg font-medium">{item.name}</h3>
-                        <p className="text-gray-600">
-                          <span className="text-blue-500">Precio:</span>{" "}
-                          <span className="text-xl text-red-600 font-medium">
-                            ${item.price}
-                          </span>
-                        </p>
-                        {item.selectedColor && (
+                return (
+                  <li
+                    key={index}
+                    className="mb-4 border rounded-lg p-4 shadow-md"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Image
+                          src={item.miniatura}
+                          alt={item.name}
+                          width={300}
+                          height={300}
+                          className="w-16 h-16 rounded-md object-cover mr-4"
+                        />
+                        <div>
+                          <h3 className="text-lg font-medium">{item.name}</h3>
                           <p className="text-gray-600">
-                            Color: {item.selectedColor}
+                            <span className="text-blue-500">Precio:</span>{" "}
+                            <span className="text-xl text-red-600 font-medium">
+                              ${item.price}
+                            </span>
                           </p>
-                        )}
-                        {item.selectedSize && (
-                          <p className="text-gray-600">
-                            Tamaño: {item.selectedSize}
-                          </p>
-                        )}
-                        {item.description && (
-                          <p className="text-gray-600 mt-2">
-                            {item.description}
-                          </p>
-                        )}
+                          {item.selectedColor && (
+                            <p className="text-gray-600">
+                              Color: {item.selectedColor}
+                            </p>
+                          )}
+                          {item.selectedSize && (
+                            <p className="text-gray-600">
+                              Tamaño: {item.selectedSize}
+                            </p>
+                          )}
+                          {item.description && (
+                            <p className="text-gray-600 mt-2">
+                              {item.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center">
+                        <input
+                          className="w-16 h-8 text-center border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+                          type="number"
+                          value={item.quantity}
+                          onChange={(e) => {
+                            const newQuantity = parseInt(e.target.value);
+                            if (newQuantity > 0) {
+                              handleUpdateCart(item, newQuantity);
+                            }
+                          }}
+                        />
+                        <button
+                          className="text-red-600 hover:text-red-800 ml-4"
+                          onClick={() => handleRemoveFromCart(item)}
+                        >
+                          <FaTrash /> {/* Reemplaza "Eliminar" por el ícono */}
+                        </button>
                       </div>
                     </div>
-                    <div className="flex items-center">
-                      <button
-                        className="text-red-600 hover:text-red-800"
-                        onClick={() => handleRemoveFromCart(item)}
-                      >
-                        Eliminar
-                      </button>
-                      <input
-                        className="w-16 h-8 text-center border border-gray-300 rounded ml-4"
-                        type="number"
-                        value={item.quantity}
-                        onChange={(e) => {
-                          const newQuantity = parseInt(e.target.value);
-                          if (newQuantity > 0) {
-                            handleUpdateCart(item, newQuantity);
-                          }
-                        }}
-                      />
+                    <div className="text-gray-600 mt-2">
+                      <span className="text-blue-500">Total por Producto:</span>{" "}
+                      <span className="text-xl text-red-600 font-medium">
+                        ${totalPricePerProduct.toFixed(2)}
+                      </span>
                     </div>
-                  </div>
-                  <div className="text-gray-600 mt-2">
-                    <span className="text-blue-500">Total por Producto:</span>{" "}
-                    <span className="text-xl text-red-600 font-medium">
-                      ${totalPricePerProduct.toFixed(2)}
-                    </span>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="text-xl font-semibold mb-4 md:mb-0">
-            Total: {typeof total === "number" ? `$${total.toFixed(2)}` : "N/A"}
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <button
-              className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300 mb-4 md:mb-0"
-              onClick={handleClearCart}
-            >
-              Vaciar Carrito
-            </button>
-            <Link
-              href="/finalizarCompra"
-              className="text-white text-center bg-blue-500 py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Finalizar Compra
-            </Link>
-          </div>
-        </div>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="text-xl font-semibold mb-4 md:mb-0">
+              Total:{" "}
+              {typeof total === "number" ? `$${total.toFixed(2)}` : "N/A"}
+            </div>
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <button
+                className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300 mb-4 md:mb-0"
+                onClick={handleClearCart}
+              >
+                Vaciar Carrito
+              </button>
+              <Link
+                href="/finalizarCompra"
+                className="text-white text-center bg-blue-500 py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+              >
+                Finalizar Compra
+              </Link>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       )}
     </div>
   );
