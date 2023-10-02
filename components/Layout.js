@@ -7,7 +7,7 @@ const Layout = ({ children, pagina, guitarra}) => {
   return (
     <div>
       <Head>
-        <title> Zapatillas Chillin XD - {pagina}</title>
+        <title> {pagina} - Jordan Store </title>
         <meta name="description" content={`Learn more about ${pagina}`} />
         <meta property="og:title" content={`${pagina} - My Clothing Store`} />
         <meta
@@ -15,7 +15,7 @@ const Layout = ({ children, pagina, guitarra}) => {
           content={`Learn more about ${pagina}`}
         />
         <meta property="og:type" content="website" />
-        <link rel="icon" href="/guitar.ico" />
+        <link rel="icon" href="/myfavicon.ico" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

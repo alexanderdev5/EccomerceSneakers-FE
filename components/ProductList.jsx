@@ -4,6 +4,7 @@ import { addToCart } from "../store/cartSlice";
 import data from "../data/data"; // Importa los datos desde tu archivo JSON
 import { FaShoppingCart } from "react-icons/fa";
 import toast, { Toaster } from 'react-hot-toast';
+import Image from "next/image";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -80,9 +81,11 @@ const ProductList = () => {
       >
         <div className="p-2 flex-grow">
           <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-          <img
+          <Image
             src={product.image}
             alt={product.name}
+            width={500}
+            height={500}
             className="w-48 h-48 rounded-md mb-2 mr-4 sm:w-48 sm:h-48 md:w-48 md:h-48"
           />
           <p className="text-gray-600 mb-2">Precio: ${product.price}</p>

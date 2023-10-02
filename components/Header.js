@@ -1,79 +1,103 @@
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import MobileMenu from "./MobileMenu"; // Asegúrate de importar el componente del menú aquí.
+import { useSelector, useDispatch } from "react-redux";
+import { selectTotalQuantity } from "../store/cartSlice";
+import Image from "next/image";
+import {
+  AiOutlineUser,
+  AiOutlineShoppingCart,
+  AiOutlineSearch,
+} from "react-icons/ai";
+import Modal from "./Modal";
+import CartModal from "./CartModal";
 
 const Header = () => {
-  const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  //const totalQuantity = useSelector(selectTotalQuantity);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log("CARTITEMs", cartItems);
+  const [isSearchModalOpen, setSearchModalOpen] = useState(false);
+  const [isCartModalOpen, setCartModalOpen] = useState(false);
+
+  const openSearchModal = () => {
+    setSearchModalOpen(true);
+  };
+
+  const closeSearchModal = () => {
+    setSearchModalOpen(false);
+  };
+
+  const openCartModal = () => {
+    setCartModalOpen(true);
+  };
+
+  const closeCartModal = () => {
+    setCartModalOpen(false);
   };
 
   return (
-    <header className="bg-gray-50 py-4 mb-5">
+    <header className="py-6">
       <div className="container mx-auto flex items-center justify-between">
-        <Link href="/"
-           className="flex items-center">
-            <img
-              src="./logos.png"
-              alt="Imagen logo"
-              className="h-12 w-auto"
-            />
-            <span className="text-black text-xl font-semibold ml-2">
-              JORDAN STORE
-            </span>
-          
+        {/**Esto va a la izquierda */}
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logos.png"
+            alt="Imagen logo"
+            width={120} // Ancho deseado
+            height={48} // Alto deseado
+            className="h-12 w-12" // Estilos de Tailwind CSS para la imagen
+          />
+          <span className="text-black text-xl font-semibold ml-2">
+            JORDAN STORE
+          </span>
         </Link>
 
-        <nav className="hidden md:flex text-black space-x-6">
-          <Link href="/" className={`hover:text-blue-700 ${router.pathname === "/" && "text-black"}`}>Inicio
+        {/**Esto va al medio */}
+        <nav className="md:flex text-gray-800 space-x-6">
+          <Link
+            href="/producto/catalogoProductos"
+            className="hover:text-black font-bold"
+          >
+            Catalogo
           </Link>
-          <Link href="/nosotros"
-             className={`hover:text-blue-700 ${router.pathname === "/nosotros" && "text-black"}`}>Nosotros
+          <Link href="/about/aboutus" className="hover:text-black font-bold">
+            Nosotros
           </Link>
-          <Link href="/blog"
-             className={`hover:text-blue-700 ${router.pathname === "/blog" && "text-black"}`}>Blog
+          <Link href="" className="hover:text-black font-bold">
+            Categoria
           </Link>
-          <Link href="/tienda"
-             className={`hover:text-blue-500 ${router.pathname === "/tienda" && "text-blue-500"}`}>Tienda
+          <Link href="" className="hover:text-black font-bold">
+            Contactanos
+          </Link>
+          <Link href="" className="hover:text-black font-bold">
+            Blog
           </Link>
         </nav>
 
-        {/* Botón del menú hamburguesa */}
-        <button
-          onClick={toggleMenu}
-          className="md:hidden text-black focus:outline-none"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            {isMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
+        <div>
+          <div className="flex items-center space-x-2">
+            <button className="hover:text-gray-500" onClick={openSearchModal}>
+              <AiOutlineSearch size={34} />
+            </button>
+            <button className="hover:text-gray-500">
+              <AiOutlineUser size={34} />
+            </button>
+            <button className="hover:text-gray-500 relative">
+              <AiOutlineShoppingCart size={34} />
+              <span className="absolute bottom-6 left-6 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-base font-medium">
+                {cartItems.length > 0 ? cartItems.length : "0"}
+              </span>
+            </button>
+          </div>
+          {/* Renderizar el modal si isCartModalOpen es true */}
+          {isCartModalOpen && (
+            <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+              {CartModal}
+            </div>
+          )}
+          <Modal isOpen={isSearchModalOpen} onClose={closeSearchModal} />
+        </div>
       </div>
-
-      {/* Menú desplegable en modo móvil */}
-      <MobileMenu isOpen={isMenuOpen} onClose={toggleMenu} />
     </header>
   );
 };

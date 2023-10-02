@@ -5,6 +5,7 @@ import { store } from "@/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Montserrat } from "next/font/google";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const persistor = persistStore(store);
 const montserrat = Montserrat({
@@ -19,7 +20,7 @@ const montserrat = Montserrat({
 
 export default function App({ Component, pageProps }) {
   return (
-    <PersistGate loading={"..loading"} persistor={persistor}>
+    <PersistGate  loading={<LoadingScreen />} persistor={persistor}>
       <Provider store={store}>
         <main className={montserrat.className}>
           <Component {...pageProps} />

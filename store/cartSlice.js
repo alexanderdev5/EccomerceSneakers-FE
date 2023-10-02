@@ -12,7 +12,7 @@ export const cartSlice = createSlice({
     
       // Genera una clave única para el producto en el carrito
       // Incluye el id, el color y la talla solo si están disponibles
-      const itemKey = `${id}-${selectedColor || 'N/A'}-${selectedSize || 'N/A'}`;
+      const itemKey = `${id || 'N/A'}-${selectedColor || 'N/A'}-${selectedSize || 'N/A'}`;
     
       // Busca el elemento en el carrito con la misma clave
       const existingItem = state.cartItems.find((item) => item.key === itemKey);
@@ -35,6 +35,8 @@ export const cartSlice = createSlice({
         });
       }
     },
+    
+    
     
     updateQuantityCart: (state, action) => {
       const { id, selectedSize, selectedColor, newQuantity } = action.payload;
