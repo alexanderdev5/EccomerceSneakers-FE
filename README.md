@@ -1,6 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+
+# About the Project - Front End
+
+I am utilizing NEXT.js 13 for the front-end of my project. This project revolves around an e-commerce platform designed for purchasing sneakers, offering a wide range of product variations, including different colors and sizes. This flexibility allows customers to buy a single product with various color and size options, products with only color variations, those with only size variations, and even products without either.
+
+To manage the application state, I've integrated Redux Toolkit, while I've used Tailwind CSS to create a cohesive and visually appealing E-commerce design. For the core functionality of the project, I rely on React.js.
+
+Once users have finished selecting items for their shopping cart, they can seamlessly proceed to checkout. For payment processing, I've integrated the STRIPE payment gateway, a trusted European payment solution. This gateway streamlines the payment process by pre-filling payment details with cart data and any additional information needed for transaction processing. The result is a fast and highly intuitive payment experience, which is why I chose to incorporate it into the project.
+
+# ScreenShoots of the Project
+
+![screen1](https://github.com/alexanderdev5/EccomerceSneakers-FE/assets/79029068/3c35f4d1-05e6-4dba-990c-26663d9ec10d)
+
+![screen2](https://github.com/alexanderdev5/EccomerceSneakers-FE/assets/79029068/65278db9-2741-4887-b760-7752dad04c29)
+
+![screen3](https://github.com/alexanderdev5/EccomerceSneakers-FE/assets/79029068/2c8c6212-a0c2-4544-939d-05f673426104)
+
+
+
+# Getting Started
 
 First, run the development server:
 
