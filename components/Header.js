@@ -27,6 +27,8 @@ const Header = () => {
     setSearchModalOpen(false);
   };
 
+
+
   const openCartModal = () => {
     setCartModalOpen(true);
   };
@@ -35,8 +37,10 @@ const Header = () => {
     setCartModalOpen(false);
   };
 
+
+ 
   return (
-    <header className="py-6">
+    <header className="hidden md:block py-6 sticky top-0 bg-gray-100 z-10">
       <div className="container mx-auto flex items-center justify-between">
         {/**Esto va a la izquierda */}
         <Link href="/" className="flex items-center">
@@ -54,18 +58,35 @@ const Header = () => {
 
         {/**Esto va al medio */}
         <nav className="md:flex text-gray-800 space-x-6">
+          
+          <Link href="/about/aboutus" className="hover:text-black font-bold">
+            Nosotros
+          </Link>
           <Link
             href="/producto/catalogoProductos"
             className="hover:text-black font-bold"
           >
             Catalogo
           </Link>
-          <Link href="/about/aboutus" className="hover:text-black font-bold">
-            Nosotros
+          <Link
+            href=""
+            className="hover:text-black font-bold"
+          >
+            Hombres
           </Link>
-          <Link href="" className="hover:text-black font-bold">
-            Categoria
+          <Link
+            href=""
+            className="hover:text-black font-bold"
+          >
+            Mujeres
           </Link>
+          <Link
+            href=""
+            className="hover:text-black font-bold"
+          >
+            Niños
+          </Link>
+          
           <Link href="" className="hover:text-black font-bold">
             Contactanos
           </Link>
@@ -82,20 +103,24 @@ const Header = () => {
             <button className="hover:text-gray-500">
               <AiOutlineUser size={34} />
             </button>
-            <button className="hover:text-gray-500 relative">
+            <button className="hover:text-gray-500 relative" onClick={openCartModal}>
               <AiOutlineShoppingCart size={34} />
               <span className="absolute bottom-6 left-6 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-base font-medium">
                 {cartItems.length > 0 ? cartItems.length : "0"}
               </span>
             </button>
           </div>
-          {/* Renderizar el modal si isCartModalOpen es true */}
-          {isCartModalOpen && (
-            <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-              {CartModal}
-            </div>
-          )}
-          <Modal isOpen={isSearchModalOpen} onClose={closeSearchModal} />
+           {/* Renderizar el modal si isCartModalOpen es true */}
+        {isCartModalOpen && (
+  <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+    <CartModal onClose={closeCartModal} />
+  </div>
+)}
+        <Modal isOpen={isSearchModalOpen} onClose={closeSearchModal} />
+        
+        
+        
+        
         </div>
       </div>
     </header>

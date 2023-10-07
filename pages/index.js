@@ -9,6 +9,9 @@ import Layout from "@/components/Layout";
 import styles from "../styles/Home.module.css"; // Importa los estilos CSS
 import Banner from "@/components/Banner/Banner";
 import Wrapper from "@/components/Wrapper";
+import NewProductsCarousel from "@/components/HomeProductos/NewProductsCarousel";
+import SaleProductsCarousel from "@/components/HomeProductos/SaleProductsCarousel";
+import StockProductsCarousel from "@/components/HomeProductos/StockProductsCarousel";
 
 
 // Configuración del carrusel
@@ -16,15 +19,15 @@ const carouselSettings = {
   responsive: {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 6,
 
-      slidesToSlide: 5, // Show 4 product per slide on desktop
+      slidesToSlide: 6, // Show 4 product per slide on desktop
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 4,
+      items: 5,
 
-      slidesToSlide: 4, // Show 4 product per slide on desktop
+      slidesToSlide: 5, // Show 4 product per slide on desktop
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -61,78 +64,70 @@ function StyledHeading({ text }) {
   );
 }
 
-const Home = ({banners,products}) => {
-  console.log("banners",banners)
+
+const Home = ({ banners, products }) => {
+  // Filtrar productos nuevos
+  const nuevosProductos = products
+    .filter((producto) => {
+      // Verificar si el atributo "value" es "nuevo"
+      return (
+        producto.attributes.atributo &&
+        producto.attributes.atributo.data.attributes.value === "nuevo"
+      );
+    })
+    .slice(0, 15); // Limitar a 15 productos
+
+  // Filtrar productos en oferta
+  const productosEnOferta = products
+    .filter((producto) => {
+      // Verificar si el atributo "value" es "oferta"
+      return (
+        producto.attributes.atributo &&
+        producto.attributes.atributo.data.attributes.value === "oferta"
+      );
+    })
+    .slice(0, 15); // Limitar a 15 productos
+
+     // Filtrar productos en Stock
+  const productosEnStock = products
+  .filter((producto) => {
+    // Verificar si el atributo "value" es "oferta"
+    return (
+      producto.attributes.atributo &&
+      producto.attributes.atributo.data.attributes.value === "stock"
+    );
+  })
+  .slice(0, 15); // Limitar a 15 productos
+
+    
   return (
     <Layout pagina="Inicio">
-      <Banner banners={banners}/>
+      <Banner banners={banners} />
 
       <div className="container mx-auto min-h-screen px-3 md:px-14 lg:px-16 xl:">
         {/* Carrusel de Productos Nuevos */}
-        <section>
-          <StyledHeading text="Productos Nuevos" />
-          <Carousel {...carouselSettings}>
-            {nuevosProductos.map((producto) => (
-              <div key={producto.id} className="px-2">
-                <div className="bg-white p-4 rounded-lg shadow-md">
-                  <img
-                    src={producto.imagen}
-                    alt={producto.nombre}
-                    className="w-full h-48 object-cover"
-                  />
-                  <h3 className="text-xl font-semibold mt-2">
-                    {producto.nombre}
-                  </h3>
-                  <p className="text-gray-600">Precio: ${producto.precio}</p>
-                  <Link
-                    href={`/producto/${producto.id}`}
-                    className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-                  >
-                    Ver detalles
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </Carousel>
-        </section>
+        <StyledHeading text="Productos Nuevos" />
+        <NewProductsCarousel nuevosProductos={nuevosProductos} />
 
         {/* Carrusel de Productos en Oferta */}
-        <section className="mb-6 mt-12">
-          <StyledHeading text="Productos en Oferta" />
-          <Carousel {...carouselSettings}>
-            {productosEnOferta.map((producto) => (
-              <div key={producto.id} className="px-2">
-                <div className="bg-white p-4 rounded-lg shadow-md">
-                  <img
-                    src={producto.imagen}
-                    alt={producto.nombre}
-                    className="w-full h-48 object-cover"
-                  />
-                  <h3 className="text-xl font-semibold mt-2">
-                    {producto.nombre}
-                  </h3>
-                  <p className="text-gray-600">Precio: ${producto.precio}</p>
-                  <Link
-                    href={`/producto/${producto.id}`}
-                    className="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-                  >
-                    Ver detalles
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </Carousel>
-        </section>
+        <StyledHeading text="Productos en Oferta" />
+        <SaleProductsCarousel productosEnOferta={productosEnOferta} />
+        
+        {/* Resto del código... */}
+        <StyledHeading text="Productos en Stock" />
+        <StockProductsCarousel productosEnStock={productosEnStock} />
+        
+        
       </div>
-
-
     </Layout>
   );
 };
 
+
+
 export default Home;
 
-export async function getStaticProps({name}) {
+export async function getStaticProps() {
   const banners = await fetchDataFromApi(`/api/banner?populate=*`);
  const products = await fetchDataFromApi(`/api/products?populate=*`);
 

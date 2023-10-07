@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
+import MobileHeader from "./MobileHeader ";
 
 const Layout = ({ children, pagina, guitarra}) => {
   return (
@@ -22,6 +23,7 @@ const Layout = ({ children, pagina, guitarra}) => {
         
       </Head>
       <Header />
+      <MobileHeader />
       {children}
       <Footer />
     </div>

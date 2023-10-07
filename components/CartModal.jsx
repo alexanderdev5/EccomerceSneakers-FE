@@ -1,27 +1,31 @@
-import React, { useState } from "react";
-import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
+// CartModal.jsx
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "@/store/cartSlice";
+import toast, { Toaster } from "react-hot-toast";
+import Cart from "@/pages/cart";
 
-const CartModal = () => {
-   
+const CartModal = ({ onClose }) => {
+  const handleModalClick = (e) => {
+    // Cierra el modal solo si se hace clic fuera de él
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
 
   return (
-    <div className="bg-white p-4 rounded-lg w-96">
-    <h2 className="text-xl font-semibold mb-4">Carrito de compras</h2>
-    {/* Aquí puedes mostrar la lista de productos en el carrito */}
-    {/* Puedes utilizar mapeo para mostrar los productos y su cantidad */}
-    <div>
-      <p>Producto 1 - Cantidad: 2</p>
-      <p>Producto 2 - Cantidad: 1</p>
-      {/* Agrega más productos según sea necesario */}
-    </div>
-    <button
-      onClick={closeCartModal}
-      className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+    <div
+      className="fixed top-0 right-0 bottom-0 left-0 bg-black bg-opacity-50 flex justify-end items-stretch"
+      onClick={handleModalClick} // Cierra el modal al hacer clic fuera de él
     >
-      Cerrar
-    </button>
-  </div>
+      <div
+        className="bg-white w-[420px] shadow-md overflow-y-auto p-4 h-full"
+      >
+        {/* Contenido del modal */}
+        <Cart />
+      </div>
+    </div>
   );
-  }
+};
 
-  export default CartModal;
+export default CartModal;

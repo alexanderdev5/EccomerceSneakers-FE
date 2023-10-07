@@ -183,13 +183,13 @@ const Cart = () => {
                 className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300 mb-4 md:mb-0"
                 onClick={handleClearCart}
               >
-                Vaciar Carrito
+                Limpiar
               </button>
               <Link
                 href="/finalizarCompra"
                 className="text-white text-center bg-blue-500 py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
               >
-                Finalizar Compra
+                Checkout
               </Link>
             </div>
           </motion.div>

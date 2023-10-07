@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/cartSlice";
 import { FaCheck, FaShoppingCart } from "react-icons/fa";
+import { IoBook } from 'react-icons/io5';
+
 import toast, { Toaster } from "react-hot-toast";
 import { fetchDataFromApi } from "@/utils/api";
 import Image from "next/image";
@@ -10,6 +12,7 @@ import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import Wrapper from "@/components/Wrapper";
 import Typewriter from "typewriter-effect/dist/core";
+import Link from "next/link";
 
 const CatalogoProductos = ({ products }) => {
   const dispatch = useDispatch();
@@ -126,102 +129,117 @@ const CatalogoProductos = ({ products }) => {
               TIENDA
             </h2>
             {/* Mobile filter select */}
-    <div className="md:hidden text-center mb-4">
-      <select
-        className="bg-blue-500 text-white py-2 px-4 rounded-lg text-xl w-full"
-        onChange={() => openModal()}
-      >
-        <option value="">Filtrar</option>
-      </select>
-    </div>
+            <div className="md:hidden text-center mb-4">
+              <select
+                className="bg-blue-500 text-white py-2 px-4 rounded-lg text-xl w-full"
+                onChange={() => openModal()}
+              >
+                <option value="">Filtrar</option>
+              </select>
+            </div>
 
-             {/* Filters row */}
-  <div className="hidden md:flex flex-wrap justify-between items-center mb-6">
-    {/* Category filter */}
-    <div className="w-full md:w-1/5 mb-4">
-      <label htmlFor="category-select" className="block font-medium text-gray-700">
-        Categoría
-      </label>
-      <select
-        id="category-select"
-        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        // Add your category options here
-      >
-        <option>Todas</option>
-        <option>Zapatillas deportivas</option>
-        <option>Zapatos casuales</option>
-        {/* Add more category options */}
-      </select>
-    </div>
+            {/* Filters row */}
+            <div className="hidden md:flex flex-wrap justify-between items-center mb-6">
+              {/* Category filter */}
+              <div className="w-full md:w-1/5 mb-4">
+                <label
+                  htmlFor="category-select"
+                  className="block font-medium text-gray-700"
+                >
+                  Categoría
+                </label>
+                <select
+                  id="category-select"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  // Add your category options here
+                >
+                  <option>Todas</option>
+                  <option>Zapatillas deportivas</option>
+                  <option>Zapatos casuales</option>
+                  {/* Add more category options */}
+                </select>
+              </div>
 
-    {/* Brand filter */}
-    <div className="w-full md:w-1/5 mb-4">
-      <label htmlFor="brand-select" className="block font-medium text-gray-700">
-        Marca
-      </label>
-      <select
-        id="brand-select"
-        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        // Add your brand options here
-      >
-        <option>Todas</option>
-        <option>Nike</option>
-        <option>Adidas</option>
-        {/* Add more brand options */}
-      </select>
-    </div>
+              {/* Brand filter */}
+              <div className="w-full md:w-1/5 mb-4">
+                <label
+                  htmlFor="brand-select"
+                  className="block font-medium text-gray-700"
+                >
+                  Marca
+                </label>
+                <select
+                  id="brand-select"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  // Add your brand options here
+                >
+                  <option>Todas</option>
+                  <option>Nike</option>
+                  <option>Adidas</option>
+                  {/* Add more brand options */}
+                </select>
+              </div>
 
-    {/* Subcategory filter */}
-    <div className="w-full md:w-1/5 mb-4">
-      <label htmlFor="subcategory-select" className="block font-medium text-gray-700">
-        Subcategoría
-      </label>
-      <select
-        id="subcategory-select"
-        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        // Add your subcategory options here
-      >
-        <option>Todas</option>
-        <option>Running</option>
-        <option>Basketball</option>
-        {/* Add more subcategory options */}
-      </select>
-    </div>
+              {/* Subcategory filter */}
+              <div className="w-full md:w-1/5 mb-4">
+                <label
+                  htmlFor="subcategory-select"
+                  className="block font-medium text-gray-700"
+                >
+                  Subcategoría
+                </label>
+                <select
+                  id="subcategory-select"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  // Add your subcategory options here
+                >
+                  <option>Todas</option>
+                  <option>Running</option>
+                  <option>Basketball</option>
+                  {/* Add more subcategory options */}
+                </select>
+              </div>
 
-    {/* Color filter */}
-    <div className="w-full md:w-1/5 mb-4">
-      <label htmlFor="color-select" className="block font-medium text-gray-700">
-        Color
-      </label>
-      <select
-        id="color-select"
-        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        // Add your color options here
-      >
-        <option>Todos</option>
-        <option>Rojo</option>
-        <option>Azul</option>
-        {/* Add more color options */}
-      </select>
-    </div>
+              {/* Color filter */}
+              <div className="w-full md:w-1/5 mb-4">
+                <label
+                  htmlFor="color-select"
+                  className="block font-medium text-gray-700"
+                >
+                  Color
+                </label>
+                <select
+                  id="color-select"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  // Add your color options here
+                >
+                  <option>Todos</option>
+                  <option>Rojo</option>
+                  <option>Azul</option>
+                  {/* Add more color options */}
+                </select>
+              </div>
 
-    {/* Size filter */}
-    <div className="w-full md:w-1/5 mb-4">
-      <label htmlFor="size-select" className="block font-medium text-gray-700">
-        Talla
-      </label>
-      <select
-        id="size-select"
-        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        // Add your size options here
-      >
-        <option>Todas</option>
-        <option>36</option>
-        <option>37</option>
-        {/* Add more size options */}
-      </select>
-    </div>
-  </div>
+              {/* Size filter */}
+              <div className="w-full md:w-1/5 mb-4">
+                <label
+                  htmlFor="size-select"
+                  className="block font-medium text-gray-700"
+                >
+                  Talla
+                </label>
+                <select
+                  id="size-select"
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  // Add your size options here
+                >
+                  <option>Todas</option>
+                  <option>36</option>
+                  <option>37</option>
+                  {/* Add more size options */}
+                </select>
+              </div>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 gap-3">
               {products?.data?.map((product, index) => {
                 const {
@@ -269,8 +287,10 @@ const CatalogoProductos = ({ products }) => {
                         Precio: $ {price.toFixed(2)}
                       </p>
                       <p className="text-gray-600 mb-2  whitespace-normal overflow-hidden break-words">
-  {description.length > 40 ? `${description.slice(0, 40)}...` : description}
-</p>
+                        {description.length > 40
+                          ? `${description.slice(0, 40)}...`
+                          : description}
+                      </p>
                       {colors?.data?.length > 0 && (
                         <div className="my-2">
                           <label
@@ -367,15 +387,32 @@ const CatalogoProductos = ({ products }) => {
                         </div>
                       )}
                     </div>
-                    <div className="ml-5 mb-6 flex justify-start mt-auto">
-                      <button
-                        className="bg-green-500 text-white py-2 px-1 rounded-lg text-sm hover:bg-blue-600 transition duration-300 flex items-center"
-                        onClick={() => handleAddToCart(product, index)}
-                      >
-                        <FaShoppingCart className="mr-2" />
-                        Agregar al carrito
-                      </button>
-                    </div>
+                    <div className="ml-1 mb-6 flex justify-center mt-auto gap-3 ">
+  <button
+    className="bg-green-500 text-white py-2 px-4 rounded-lg text-sm flex items-center space-x-2
+    hover:bg-gray-600 transition duration-300"
+    onClick={() => handleAddToCart(product, index)}
+  >
+    <FaShoppingCart className="text-xl" />
+    <span></span>
+  </button>
+
+  <button
+    className="bg-black text-white py-2 px-4 rounded-lg text-sm flex items-center space-x-2
+    hover:bg-gray-600 transition duration-300"
+    
+  >
+    <Link
+    href={`/product/${slug}`}
+    className=""
+  >
+    <IoBook className="text-xl" />
+    <span></span>
+  </Link>
+  </button>
+  
+</div>
+
                   </motion.div>
                 );
               })}
